@@ -29,3 +29,31 @@ session = Session()
 
 # creating the database using declarative_base subclass
 base.metadata.create_all(db)
+
+
+# creating records on our Programmer table
+ada_lovelace = Programmer(
+    first_name="Ada",
+    last_name="Lovelace",
+    gender="F",
+    nationality="British",
+    famous_for="First Programmer"
+)
+
+# add each instance of our programmers to our session
+session.add(ada_lovelace)
+
+# commit our session to db
+session.commit()
+
+# query the db to fin all programmers
+programmers = session.query(Programmer)
+for programmer in programmers:
+    print(
+        programmer.id,
+        programmer.first_name + " " + programmer.last_name,
+        programmer.gender,
+        programmer.nationality,
+        programmer.famous_for,
+        sep=" | "
+    )
